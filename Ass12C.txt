@@ -1,0 +1,45 @@
+// Assignment #7-C (Chapter 12)
+// This is a modification of Part 1. 
+// Write a program that asks the user for the name of a file. The program should
+// display the contents of the file on the screen. Each line of screen output
+// should be preceded with a line number, followed by a colon. The line numbering
+// should start at 1: then 2: then 3: and so on,
+// If the file's contents won't fit on a single screen, the program should display
+// 24 lines of output at a time, and then pause. Each time the program pauses, it
+// should wait for the user to strike a key before the next 24 lines are displayed.
+// enter: main.cpp to test program
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+    string filename;
+    string line;
+    fstream fin;
+    int count = 1;
+
+    cout << "Enter file name ::: ";
+    getline(cin, filename);
+
+    fin.open(filename.c_str(), ios::in);
+
+    if(!fin)
+    {
+        cout << "Error opening the file\n";
+        return -1;
+    }
+    while(getline(fin,line))
+    {
+        cout << "line " << count << ":" << line << endl;
+        if(count % 24 == 0)
+        {
+            cout << "Press enter to continue\n";
+            cin.get();
+        }
+        count++;
+    }
+    fin.close();
+    return 0;
+}
